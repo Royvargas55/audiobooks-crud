@@ -1,6 +1,6 @@
 {
   "name": "audiobooks-crud",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Given an API documentation, a web page is created that can create, search, delete, and edit audio content models.",
   "main": "index.js",
   "scripts": {
