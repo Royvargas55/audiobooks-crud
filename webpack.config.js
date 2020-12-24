@@ -1,15 +1,21 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { SourceMapDevToolPlugin } = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/home',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  devServer: {
+    port: 4000,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -19,6 +25,11 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
       },
       {
         test: /\.html$/,
@@ -54,6 +65,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new SourceMapDevToolPlugin({
+      filename: '[file].map',
+    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
