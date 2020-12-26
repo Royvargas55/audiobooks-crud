@@ -8,13 +8,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/home',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    port: 4000,
     historyApiFallback: true,
   },
   module: {
