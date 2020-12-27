@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import '../assets/styles/components/Header.scss';
 
 import logo from '../assets/static/logo-beek.png';
@@ -13,8 +15,8 @@ const Header = () => (
         <p>Perfil</p>
       </div>
       <ul>
-        <li><a href='/'>Cuenta</a></li>
-        <li><a href='/'>Cerrar Sesión</a></li>
+        <li><Link to='/add'>Add Audiobook</Link></li>
+        <li><Link to='/home'>Home</Link></li>
       </ul>
     </div>
   </header>

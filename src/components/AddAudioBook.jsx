@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import Header from './Header';
 import Footer from './Footer';
 
@@ -17,7 +18,7 @@ const AddAudioBook = () => {
           </div>
 
           <div className='form__group'>
-            <input type='text' placeholder='Street date' className='form__input' />
+            <input type='date' placeholder='Street date' className='form__input' />
           </div>
 
           <div className='form__group'>
@@ -42,7 +43,7 @@ const AddAudioBook = () => {
             <input type='text' placeholder='Duration' className='form__input' />
           </div>
           <div className='btn__group'>
-            <button className='btn' type='button'>Add new audiobook</button>
+            <button className='btn' type='submit'>Add new audiobook</button>
             <Link to='/' className='btn__cancel'>Cancel</Link>
           </div>
         </form>
