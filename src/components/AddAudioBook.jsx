@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable radix */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
@@ -21,12 +23,12 @@ class AddAudioBook extends React.Component {
       form: {
         title: '',
         streetDate: '',
-        costPerPlay: 0,
+        costPerPlay: '',
         author: '',
         authors: [],
         narrator: '',
         narrators: [],
-        duration: 0,
+        duration: '',
       },
     };
   }
@@ -45,8 +47,14 @@ class AddAudioBook extends React.Component {
   addAuthor = () => {
     this.setState((state) => {
       const list = state.form.authors.push(state.form.author);
-      // eslint-disable-next-line no-param-reassign
       state.form.author = '';
+      swal({
+        title: 'Successfully completed',
+        text: 'Added author',
+        icon: 'success',
+        button: 'Accept',
+        timer: 2000,
+      });
       return {
         list,
         author: '',
@@ -57,8 +65,14 @@ class AddAudioBook extends React.Component {
   addNarrator = () => {
     this.setState((state) => {
       const list = state.form.narrators.push(state.form.narrator);
-      // eslint-disable-next-line no-param-reassign
       state.form.narrator = '';
+      swal({
+        title: 'Successfully completed',
+        text: 'Added narrator',
+        icon: 'success',
+        button: 'Accept',
+        timer: 2000,
+      });
       return {
         list,
         narrator: '',
@@ -104,9 +118,35 @@ class AddAudioBook extends React.Component {
     })
       .then((res) => {
         console.log(res);
+        this.setState((state) => {
+          state.form.title = '';
+          state.form.streetDate = '';
+          state.form.costPerPlay = '';
+          state.form.duration = '';
+          swal({
+            title: 'Successfully completed',
+            text: 'Added new audiobook',
+            icon: 'success',
+            button: 'Accept',
+            timer: 4000,
+          });
+          return {
+            title: '',
+            streetDate: '',
+            costPerPlay: '',
+            duration: '',
+          };
+        });
       })
       .catch((error) => {
         console.error(error);
+        swal({
+          title: 'Something wrong',
+          text: 'Check the values again',
+          icon: 'error',
+          button: 'Accept',
+          timer: 4000,
+        });
       });
   };
 
@@ -123,6 +163,7 @@ class AddAudioBook extends React.Component {
                 name='title'
                 placeholder='Title'
                 className='form__input'
+                value={this.state.form.title}
                 onChange={this.handleChange}
               />
             </div>
@@ -133,6 +174,7 @@ class AddAudioBook extends React.Component {
                 name='streetDate'
                 placeholder='Street date'
                 className='form__input'
+                value={this.state.form.streetDate}
                 onChange={this.handleChange}
               />
             </div>
@@ -141,8 +183,9 @@ class AddAudioBook extends React.Component {
               <input
                 type='text'
                 name='costPerPlay'
-                placeholder='Cost per play'
+                placeholder='Cost per play (in dollars)'
                 className='form__input'
+                value={this.state.form.costPerPlay}
                 onChange={this.handleChange}
               />
             </div>
@@ -179,8 +222,9 @@ class AddAudioBook extends React.Component {
               <input
                 type='text'
                 name='duration'
-                placeholder='Duration'
+                placeholder='Duration (in seconds)'
                 className='form__input'
+                value={this.state.form.duration}
                 onChange={this.handleChange}
               />
             </div>
