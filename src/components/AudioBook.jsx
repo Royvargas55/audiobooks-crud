@@ -7,7 +7,7 @@ import '../assets/styles/components/AudioBook.scss';
 import editIcon from '../assets/static/edit-icon.png';
 import deleteIcon from '../assets/static/delete-icon.png';
 
-const AudioBook = ({ key, title, streetDate, costPerPlay, authors, narrators, duration, cover }) => (
+const AudioBook = ({ title, streetDate, costPerPlay, authors, narrators, duration, cover }) => (
   <div className='book-item'>
     <img className='book-item__img' src={cover} alt={title} />
     <div className='book-item__details'>
@@ -17,9 +17,9 @@ const AudioBook = ({ key, title, streetDate, costPerPlay, authors, narrators, du
       </div>
       <p className='book-item__details--title'>{title}</p>
       <p className='book-item__details--subtitle'>
-        {`Street date: ${streetDate} Duration: ${duration} minutes`}
+        {`Street date: ${streetDate}`}
         <br />
-        {`Duration: ${duration} minutes`}
+        {`Duration: ${duration}`}
         <br />
         {`Cost per play: $${costPerPlay}`}
         <br />
@@ -32,10 +32,12 @@ const AudioBook = ({ key, title, streetDate, costPerPlay, authors, narrators, du
 );
 
 AudioBook.propTypes = {
-  cover: PropTypes.string,
   title: PropTypes.string,
-  year: PropTypes.number,
-  contentRating: PropTypes.string,
-  duration: PropTypes.number };
+  streetDate: PropTypes.string,
+  costPerPlay: PropTypes.number,
+  authors: PropTypes.array,
+  narrators: PropTypes.array,
+  duration: PropTypes.string,
+  cover: PropTypes.string };
 
 export default AudioBook;

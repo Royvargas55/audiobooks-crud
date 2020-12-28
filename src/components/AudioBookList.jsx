@@ -1,22 +1,35 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-mixed-operators */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Categories from './Categories';
 import AudioBook from './AudioBook';
 import AudioBookSection from './AudioBookSection';
 
-// import useInitialState from '../hooks/useInitialStates';
 const apiUrl = 'https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries?select=fields,sys.id,sys.version&locale=es-MX';
 const accessToken = 'CFPAT-LBtveUvtDi7YjAhsyNzZURthngcrVnIr53eOZjYnxuc';
 
-class AudioBookList extends Component {
+class AudioBookList extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = { data: [] };
+  }
+
+  timeConvert = (n) => {
+    n = Number(n);
+    const h = Math.floor(n / 3600);
+    const m = Math.floor(n % 3600 / 60);
+    const s = Math.floor(n % 3600 % 60);
+
+    const hDisplay = h > 0 ? h + (h === 1 ? ' hour, ' : ' hours, ') : '';
+    const mDisplay = m > 0 ? m + (m === 1 ? ' minute, ' : ' minutes, ') : '';
+    const sDisplay = s > 0 ? s + (s === 1 ? ' second' : ' seconds') : '';
+    return hDisplay + mDisplay + sDisplay;
   }
 
   requestGet = () => {
@@ -42,7 +55,18 @@ class AudioBookList extends Component {
       <div>
         <Categories title='Mi lista'>
           <AudioBookSection>
-            {this.state.data.map((item) => <AudioBook key={item.sys['id']} title={item.fields.title['es-MX']} streetDate={item.fields.street_date['es-MX']} costPerPlay={item.fields.cost_per_play['es-MX']} authors={item.fields.authors['es-MX']} narrators={item.fields.narrators['es-MX']} duration={item.fields.duration['es-MX']} cover={item.fields.cover['es-MX']} />)}
+            {this.state.data.map((item) => (
+              <AudioBook
+                key={item.sys['id']}
+                title={item.fields.title['es-MX']}
+                streetDate={item.fields.street_date['es-MX']}
+                costPerPlay={item.fields.cost_per_play['es-MX']}
+                authors={item.fields.authors['es-MX']}
+                narrators={item.fields.narrators['es-MX']}
+                duration={this.timeConvert(item.fields.duration['es-MX'])}
+                cover={item.fields.cover['es-MX']}
+              />
+            ))}
           </AudioBookSection>
         </Categories>
       </div>
