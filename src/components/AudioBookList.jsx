@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-mixed-operators */
@@ -6,6 +7,8 @@
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
 import axios from 'axios';
+import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import Categories from './Categories';
 import AudioBook from './AudioBook';
 import AudioBookSection from './AudioBookSection';
@@ -46,6 +49,45 @@ class AudioBookList extends React.Component {
       });
   }
 
+  requestDelete = (id) => {
+    const apirUrlDelete = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${id}`;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(apirUrlDelete, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        })
+          .then((res) => {
+            this.requestGet();
+          })
+          .catch((error) => {
+            console.error(error);
+            swal({
+              title: 'Something wrong',
+              text: 'Try again!',
+              icon: 'error',
+              button: 'Accept',
+              timer: 4000,
+            });
+          });
+        Swal.fire(
+          'Deleted!',
+          'The audiobook was removed from your list.',
+          'success',
+        );
+      }
+    });
+  }
+
   componentDidMount() {
     this.requestGet();
   }
@@ -66,6 +108,7 @@ class AudioBookList extends React.Component {
                 narrators={item.fields.narrators['es-MX']}
                 duration={this.timeConvert(item.fields.duration['es-MX'])}
                 cover={item.fields.cover['es-MX']}
+                requestDelete={this.requestDelete.bind(this, item.sys['id'])}
               />
             ))}
           </AudioBookSection>

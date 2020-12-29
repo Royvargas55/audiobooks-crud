@@ -1,5 +1,8 @@
 @import '../Media.scss';
 
+.description__link {
+    text-decoration: none;
+}
 .book-item {
     border-radius: 20px;
     overflow: hidden;
@@ -71,6 +74,7 @@
 .delete__btn {
     border: none;
     background: none;
+    outline: none;
     cursor: pointer;
     margin: 0;
     padding: 0;

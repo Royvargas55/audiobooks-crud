@@ -45,7 +45,7 @@ class EditAudioBook extends React.Component {
       text: 'You need to add all the values again, no empty space can be left in the form.',
       icon: 'info',
       button: 'Accept',
-      timer: 5000,
+      timer: 6000,
     });
   }
 

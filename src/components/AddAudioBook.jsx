@@ -11,6 +11,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 import '../assets/styles/components/AddAudioBook.scss';
+import infoIcon from '../assets/static/info-icon.png';
 
 const apiUrl = 'https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries';
 const accessToken = 'CFPAT-LBtveUvtDi7YjAhsyNzZURthngcrVnIr53eOZjYnxuc';
@@ -42,6 +43,16 @@ class AddAudioBook extends React.Component {
       },
     });
     console.log(this.state.form);
+  }
+
+  showInfo= () => {
+    swal({
+      title: 'Important!',
+      text: 'Every time you want to add a new author or narrator you must press the button to add them.',
+      icon: 'info',
+      button: 'Accept',
+      timer: 6000,
+    });
   }
 
   addAuthor = () => {
@@ -155,7 +166,10 @@ class AddAudioBook extends React.Component {
       <div className='AddAudioBook'>
         <Header />
         <div className='audio__book'>
-          <h1 className='title'>Add a new audiobook</h1>
+          <div className='header__form'>
+            <h1 className='title__add'>Add a new audiobook</h1>
+            <button onClick={this.showInfo} type='button' className='info__btn'><img className='book-item__info--img' src={infoIcon} alt='Info Icon' /></button>
+          </div>
           <form onSubmit={this.submitHandler} className='form'>
             <div className='form__group'>
               <input

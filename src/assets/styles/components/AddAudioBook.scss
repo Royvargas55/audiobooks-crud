@@ -11,7 +11,12 @@ body {
     height: 100vh
 }
 
-.title{
+.header__form {
+    display: flex;
+    text-align: center;
+}
+
+.title__add{
     color: white;
     text-align: center;
 }
