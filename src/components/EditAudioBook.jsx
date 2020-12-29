@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-sequences */
@@ -15,6 +16,7 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 
+import infoIcon from '../assets/static/info-icon.png';
 import '../assets/styles/components/EditAudioBook.scss';
 
 const accessToken = 'CFPAT-LBtveUvtDi7YjAhsyNzZURthngcrVnIr53eOZjYnxuc';
@@ -24,88 +26,101 @@ class EditAudioBook extends React.Component {
     super(props);
     this.state = {
       id: props.match.params.id,
-      data: [],
       form: {
         title: '',
         streetDate: '',
-        costPerPlay: 0,
+        costPerPlay: '',
         author: '',
         authors: [],
         narrator: '',
         narrators: [],
-        duration: 0,
+        duration: '',
       },
     };
   }
 
-  timeConvert = (n) => {
-    n = Number(n);
-    const h = Math.floor(n / 3600);
-    const m = Math.floor(n % 3600 / 60);
-    const s = Math.floor(n % 3600 % 60);
-
-    const hDisplay = h > 0 ? h + (h === 1 ? ' hour, ' : ' hours, ') : '';
-    const mDisplay = m > 0 ? m + (m === 1 ? ' minute, ' : ' minutes, ') : '';
-    const sDisplay = s > 0 ? s + (s === 1 ? ' second' : ' seconds') : '';
-    return hDisplay + mDisplay + sDisplay;
-  }
-
-  //Get single Audiobook
-  requestGet = () => {
-    const apiGetUrl = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries?sys.id=${this.state.id}&select=fields,sys.id,sys.version&locale=es-MX`;
-    axios.get(apiGetUrl, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    })
-      .then((res) => {
-        this.setState({ data: res.data.items });
-        console.log(this.state.data[0].fields);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-    this.requestGet();
+  showInfo= () => {
+    swal({
+      title: 'Important!',
+      text: 'You need to add all the values again, no empty space can be left in the form.',
+      icon: 'info',
+      button: 'Accept',
+      timer: 5000,
+    });
   }
 
   handleChange=async (e) => {
     e.persist();
     await this.setState({
       form: {
-        ...this.state.from,
+        ...this.state.form,
         [e.target.name]: e.target.value,
       },
     });
     console.log(this.state.form);
   }
 
+  addAuthor = () => {
+    this.setState((state) => {
+      const list = state.form.authors.push(state.form.author);
+      state.form.author = '';
+      swal({
+        title: 'Successfully completed',
+        text: 'Added author',
+        icon: 'success',
+        button: 'Accept',
+        timer: 2000,
+      });
+      return {
+        list,
+        author: '',
+      };
+    });
+  };
+
+  addNarrator = () => {
+    this.setState((state) => {
+      const list = state.form.narrators.push(state.form.narrator);
+      state.form.narrator = '';
+      swal({
+        title: 'Successfully completed',
+        text: 'Added narrator',
+        icon: 'success',
+        button: 'Accept',
+        timer: 2000,
+      });
+      return {
+        list,
+        narrator: '',
+      };
+    });
+  };
+
   submitHandler = (e) => {
     e.preventDefault();
-    axios.post('', {
+    const apiUrl = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${this.state.id}`;
+    axios.put(apiUrl, {
       'fields': {
         'title': {
-          'es-MX': '',
+          'es-MX': this.state.form.title,
         },
         'is_original': {
           'es-MX': false,
         },
         'street_date': {
-          'es-MX': '',
+          'es-MX': this.state.form.streetDate,
         },
         'cost_per_play': {
-          'es-MX': '',
+          'es-MX': parseInt(this.state.form.costPerPlay),
         },
         'authors': {
-          'es-MX': '',
+          'es-MX': this.state.form.authors,
         },
         'narrators': {
-          'es-MX': '',
+          'es-MX': this.state.form.narrators,
         },
         'duration': {
-          'es-MX': '',
+          'es-MX': parseInt(this.state.form.duration),
         },
         'cover': {
           'es-MX': 'http://dummyimage.com/800x600.png/FF7A90/ffffff',
@@ -121,6 +136,25 @@ class EditAudioBook extends React.Component {
     })
       .then((res) => {
         console.log(res);
+        this.setState((state) => {
+          state.form.title = '';
+          state.form.streetDate = '';
+          state.form.costPerPlay = '';
+          state.form.duration = '';
+          swal({
+            title: 'Successfully completed',
+            text: 'Audiobook edited correctly',
+            icon: 'success',
+            button: 'Accept',
+            timer: 4000,
+          });
+          return {
+            title: '',
+            streetDate: '',
+            costPerPlay: '',
+            duration: '',
+          };
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -140,7 +174,11 @@ class EditAudioBook extends React.Component {
         <Header />
         <div className='container'>
           <div className='audio__book'>
-            <h1 className='title'>Edit audiobook</h1>
+            <div className='header__form'>
+              <h1 className='title'>Edit audiobook</h1>
+              <button onClick={this.showInfo} type='button' className='info__btn'><img className='book-item__info--img' src={infoIcon} alt='Info Icon' /></button>
+            </div>
+
             <form onSubmit={this.submitHandler} className='form'>
               <div className='form__group'>
                 <input
