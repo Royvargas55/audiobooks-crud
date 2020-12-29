@@ -53,11 +53,12 @@ class AudioBookList extends React.Component {
   render() {
     return (
       <div>
-        <Categories title='Mi lista'>
+        <Categories title='My list'>
           <AudioBookSection>
             {this.state.data.map((item) => (
               <AudioBook
                 key={item.sys['id']}
+                id={item.sys['id']}
                 title={item.fields.title['es-MX']}
                 streetDate={item.fields.street_date['es-MX']}
                 costPerPlay={item.fields.cost_per_play['es-MX']}

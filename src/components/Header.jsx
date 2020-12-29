@@ -12,7 +12,7 @@ const Header = () => (
     <div className='header__menu'>
       <div className='header__menu--profile'>
         <img src={userIcon} alt='' />
-        <p>Perfil</p>
+        <p>Profile</p>
       </div>
       <ul>
         <li><Link to='/add'>Add Audiobook</Link></li>
