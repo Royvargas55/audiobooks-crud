@@ -37,7 +37,7 @@ These were the **minimum** requirements requested, but more features were added,
  - Sometimes the application takes time to load the information.
  - My search results section sometimes does not disappear when the search bar is empty.
 
-## To do improvments
+## To do improvements
 
 Some of the improvements I would like to make are the following:
 
