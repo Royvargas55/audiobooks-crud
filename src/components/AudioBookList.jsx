@@ -82,11 +82,6 @@ class AudioBookList extends React.Component {
               timer: 4000,
             });
           });
-        Swal.fire(
-          'Deleted!',
-          'The audiobook was removed from your list.',
-          'success',
-        );
       }
     });
   }
