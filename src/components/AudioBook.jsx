@@ -15,7 +15,9 @@ const AudioBook = ({ id, title, streetDate, costPerPlay, authors, narrators, dur
     <div className='book-item__details'>
       <div>
         <Link to={`edit/${id}`}><img className='book-item__edit--img' src={editIcon} alt='Play Icon' /></Link>
-        <button onClick={requestDelete} type='button' className='delete__btn'><img className='book-item__delete--img' src={deleteIcon} alt='Plus Icon' /></button>
+        {requestDelete && (
+          <button onClick={requestDelete} type='button' className='delete__btn'><img className='book-item__delete--img' src={deleteIcon} alt='Plus Icon' /></button>
+        )}
       </div>
       <Link to={`/${id}`} className='description__link'>
         <p className='book-item__details--title'>{title}</p>

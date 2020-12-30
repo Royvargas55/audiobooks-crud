@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import '../assets/styles/components/Header.scss';
 
 import logo from '../assets/static/logo-beek.png';
-import userIcon from '../assets/static/user-icon.png';
+import addIcon from '../assets/static/add-icon.png';
 
 const Header = () => (
   <header className='header'>
     <img className='header__img' src={logo} alt='Beek Icon' />
     <div className='header__menu'>
       <div className='header__menu--profile'>
-        <img src={userIcon} alt='' />
-        <p>Profile</p>
+        <img src={addIcon} alt='' />
+        <p>Options</p>
       </div>
       <ul>
         <li><Link to='/add'>Add Audiobook</Link></li>

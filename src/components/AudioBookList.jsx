@@ -94,7 +94,7 @@ class AudioBookList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='section__mylist'>
         <Categories title='My list'>
           <AudioBookSection>
             {this.state.data.map((item) => (
