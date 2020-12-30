@@ -42,7 +42,6 @@ class AddAudioBook extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
   }
 
   showInfo= () => {
@@ -91,6 +90,7 @@ class AddAudioBook extends React.Component {
     });
   };
 
+  // POST Request to add a new audiobook
   submitHandler = (e) => {
     e.preventDefault();
     axios.post(apiUrl, {
@@ -128,7 +128,6 @@ class AddAudioBook extends React.Component {
       },
     })
       .then((res) => {
-        console.log(res);
         this.setState((state) => {
           state.form.title = '';
           state.form.streetDate = '';

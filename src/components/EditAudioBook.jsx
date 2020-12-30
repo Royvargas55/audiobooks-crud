@@ -25,6 +25,7 @@ class EditAudioBook extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      //Take id from the URL
       id: props.match.params.id,
       form: {
         title: '',
@@ -57,7 +58,6 @@ class EditAudioBook extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
   }
 
   addAuthor = () => {
@@ -96,6 +96,7 @@ class EditAudioBook extends React.Component {
     });
   };
 
+  //PUT Request to update one audiobook
   submitHandler = (e) => {
     e.preventDefault();
     const apiUrl = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${this.state.id}`;
@@ -135,7 +136,6 @@ class EditAudioBook extends React.Component {
       },
     })
       .then((res) => {
-        console.log(res);
         this.setState((state) => {
           state.form.title = '';
           state.form.streetDate = '';

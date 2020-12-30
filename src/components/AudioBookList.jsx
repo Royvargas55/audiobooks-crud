@@ -23,6 +23,7 @@ class AudioBookList extends React.Component {
     this.state = { data: [] };
   }
 
+  //Set format of the duration
   timeConvert = (n) => {
     n = Number(n);
     const h = Math.floor(n / 3600);
@@ -35,6 +36,7 @@ class AudioBookList extends React.Component {
     return hDisplay + mDisplay + sDisplay;
   }
 
+  //Get a list with the all audiobooks
   requestGet = () => {
     axios.get(apiUrl, {
       headers: {
@@ -49,6 +51,7 @@ class AudioBookList extends React.Component {
       });
   }
 
+  //Delete audiobook
   requestDelete = (id) => {
     const apirUrlDelete = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${id}`;
     Swal.fire({

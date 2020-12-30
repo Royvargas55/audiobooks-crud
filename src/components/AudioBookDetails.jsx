@@ -28,6 +28,7 @@ class AudioBookDetails extends React.Component {
     };
   }
 
+  //Set format of the duration
   timeConvert = (n) => {
     n = Number(n);
     const h = Math.floor(n / 3600);
@@ -50,13 +51,13 @@ class AudioBookDetails extends React.Component {
     })
       .then((res) => {
         this.setState({ data: res.data.items });
-        console.log(this.state.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
+  //Delete audiobook
   requestDelete = () => {
     const apirUrlDelete = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${this.state.id}`;
     Swal.fire({

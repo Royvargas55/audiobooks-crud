@@ -10,7 +10,6 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 
 import '../assets/styles/components/Search.scss';
 
@@ -71,7 +70,6 @@ class Search extends React.Component {
   get renderAudioBooks() {
     let audiobooks;
     if (this.state.audiobooks) {
-      console.log(this.state.audiobooks);
       audiobooks = (
         <div className='search__container'>
           <Categories title='My search results'>
@@ -87,7 +85,6 @@ class Search extends React.Component {
                   narrators={item.fields.narrators['es-MX']}
                   duration={this.timeConvert(item.fields.duration['es-MX'])}
                   cover={item.fields.cover['es-MX']}
-                  // requestDelete={(e) => this.requestDelete(item.sys['id'])}
                 />
               ))}
             </AudioBookSection>

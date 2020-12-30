@@ -10,6 +10,7 @@ import editIcon from '../assets/static/edit-icon.png';
 import deleteIcon from '../assets/static/delete-icon.png';
 
 const AudioBook = ({ id, title, streetDate, costPerPlay, authors, narrators, duration, cover, requestDelete }) => (
+  // Card with the information
   <div className='book-item'>
     <img className='book-item__img' src={cover} alt={title} />
     <div className='book-item__details'>
