@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-mixed-operators */
@@ -6,6 +7,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect } from 'react-router';
+import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -20,6 +24,7 @@ class AudioBookDetails extends React.Component {
     this.state = {
       id: props.match.params.id,
       data: [],
+      redirect: false,
     };
   }
 
@@ -52,23 +57,60 @@ class AudioBookDetails extends React.Component {
       });
   }
 
+  requestDelete = () => {
+    const apirUrlDelete = `https://api.contentful.com/spaces/1t4hjzo7y0kb/environments/master/entries/${this.state.id}`;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(apirUrlDelete, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        })
+          .then((res) => {
+            this.setState({ redirect: true });
+          })
+          .catch((error) => {
+            console.error(error);
+            swal({
+              title: 'Something wrong',
+              text: 'Try again!',
+              icon: 'error',
+              button: 'Accept',
+              timer: 4000,
+            });
+          });
+      }
+    });
+  }
+
   componentDidMount() {
     this.requestGet();
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to='/home' />;
+    }
     return (
       <div>
         <Header />
         {this.state.data.map((item) => (
           <div key={item.sys['id']} className='wrapper'>
             <div className='card'>
-              <div className='product-left'>
+              <div className='audiobook__left'>
                 <div className='header'>
                   <h1 className='title'>{item.fields.title['es-MX']}</h1>
                 </div>
 
-                <div className='product-main'>
+                <div className='audiobook__main'>
                   <span>Description</span>
                   <p>
                     Street date:
@@ -92,17 +134,17 @@ class AudioBookDetails extends React.Component {
                   </p>
                 </div>
 
-                <div className='product-details'>
+                <div className='audiobook__details'>
 
-                  <div className='product-total'>
+                  <div className='audiobook__total'>
                     <h3>Duration</h3>
                     <p>{this.timeConvert(item.fields.duration['es-MX'])}</p>
                   </div>
                 </div>
 
-                <div className='product-btns'>
+                <div className='audiobook__btns'>
                   <Link to={`edit/${item.sys['id']}`} className='audio__book__edit'>Edit</Link>
-                  <a href='#' className='audio__book__delete'>Delete</a>
+                  <button onClick={this.requestDelete} className='audio__book__delete'>DELETE</button>
                 </div>
               </div>
               <div className='product-right'>

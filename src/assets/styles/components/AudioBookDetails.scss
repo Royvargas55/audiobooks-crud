@@ -16,7 +16,7 @@
   border-radius: 4px;
 }
 
-.product-left {
+.audiobook__left {
   height: 100%;
   width: 70%;
   padding: 4rem 2rem;
@@ -57,7 +57,7 @@
 
 /* Product Description */
 
-.product-main p {
+.audiobook__main p {
   font-size: 15px;
   opacity: 0.5;
   margin: 2rem 0;
@@ -65,7 +65,7 @@
   color: #262525;
 }
 
-.product-main span {
+.audiobook__main span {
     color: #262525;
     font-size: 20px;
     margin: 2rem 0;
@@ -99,17 +99,17 @@
 
 /* Total Price  */
 
-.product-total {
+.audiobook__total {
   margin: 0 0 2rem 0;
 }
 
-.product-total p {
+.audiobook__total p {
   font-weight: 700;
   font-size: 18px;
   opacity: 0.5;
 }
 
-.product-total h3{
+.audiobook__total h3{
   font-size: 20px;
   margin: 0 0 1rem 0;
 }
@@ -136,7 +136,7 @@
   color: #262525;
 }
 
-.product-btns a {
+.audiobook__btns a {
   text-decoration: none;
   color:#262525;
   text-transform: uppercase;
@@ -150,7 +150,7 @@
         display: none;
     }
 
-    .product-left {
+    .audiobook__left {
         width: 100%;
         margin: 0 5% 0 5%;
       }
@@ -161,7 +161,7 @@
         font-size: 20px;
     }
 
-    .product-left {
+    .audiobook__left {
         height: 95%;
     }
 
@@ -171,31 +171,31 @@
 }
 
 @media only screen and (max-width: 360px) {
-    .product-left {
+    .audiobook__left {
         margin-top: 10%;
         height: 600px;
     }
 
-    .product-total {
+    .audiobook__total {
         margin: 0 0 1rem 0;
       }
       
-    .product-total p {
+    .audiobook__total p {
        font-weight: 500;
        font-size: 12px;
     }
       
-    .product-total h3{
+    .audiobook__total h3{
        font-size: 15px;
     }
 
-    .product-main p {
+    .audiobook__main p {
         font-size: 12px;
         margin: 1rem 0;
         line-height: 1;
     }
       
-    .product-main span {
+    .audiobook__main span {
         font-size: 15px;
         margin: 1rem 0;
         line-height: 1;
@@ -204,13 +204,13 @@
 }
 
 @media only screen and (max-width: 375px) {
-    .product-left {
+    .audiobook__left {
         margin-top: 10%;
     }
 }
 
 @media only screen and (max-width: 320px) {
-    .product-left {
+    .audiobook__left {
         margin-top: 22%;
     }
 }
